@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>proxy</title>
+    <link rel="stylesheet" type="text/css" href="css/proxy.css">
+    <script type="text/javascript" src="js/angular.min.js"></script>
+    <script>
+        var app = angular.module('proxyApp', []);
+        app.controller('proxyCtrl', function ($scope, $http) {
+            $scope.col = 'ip';
+            $scope.desc = 0;
+            $http.get("proxyPool")
+                    .success(function (response) {
+                        $scope.proxys = response;
+                        $scope.proxySize = response.length;
+                        $scope.nowDateTime = new Date().getTime();
+                    });
+        });
+    </script>
+</head>
+<body>
+<div ng-app="proxyApp" ng-controller="proxyCtrl">
+    <table>
+        <caption><h3>代理池的IP数量 {{proxySize}}</h3></caption>
+        <tr>
+            <th>序号</th>
+            <th ng-click="col='ip';desc=!desc">IP</th>
+            <th ng-click="col='port';desc=!desc">端口</th>
+            <th ng-click="col='pullCount';desc=!desc">拉取次数</th>
+            <th ng-click="col='successCount';desc=!desc">成功次数</th>
+            <th ng-click="col='errorCount';desc=!desc">失败次数</th>
+            <th ng-click="col='pullTime';desc=!desc">存活时间(分钟)</th>
+        </tr>
+        <tr ng-repeat="proxy in proxys | orderBy:col:desc" onmouseover="style.backgroundColor='#FF9900'"
+            onmouseout="style.backgroundColor='#FFFFFF'">
+            <td>{{$index+1}}</td>
+            <td>{{proxy.ip}}</td>
+            <td>{{proxy.port}}</td>
+            <td>{{proxy.pullCount}}</td>
+            <td>{{proxy.successCount}}</td>
+            <td>{{proxy.errorCount}}</td>
+            <td>{{(nowDateTime -proxy.pullTime)/1000/60 | number:0}}</td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

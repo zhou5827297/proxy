@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         metadata-complete="true">
+
+    <welcome-file-list>
+        <welcome-file>proxy.html</welcome-file>
+    </welcome-file-list>
+
+    <listener>
+        <listener-class>com.proxy.listener.ProxyInitListener</listener-class>
+    </listener>
+
+    <servlet>
+        <servlet-name>notifySuccessServlet</servlet-name>
+        <servlet-class>com.proxy.servlet.NotifySuccessServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notifySuccessServlet</servlet-name>
+        <url-pattern>/notifySuccess</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyFailedServlet</servlet-name>
+        <servlet-class>com.proxy.servlet.NotifyFailedServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notifyFailedServlet</servlet-name>
+        <url-pattern>/notifyFailed</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>proxyServlet</servlet-name>
+        <servlet-class>com.proxy.servlet.ProxyServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>proxyServlet</servlet-name>
+        <url-pattern>/proxy</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>proxyPoolServlet</servlet-name>
+        <servlet-class>com.proxy.servlet.ProxyPoolServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>proxyPoolServlet</servlet-name>
+        <url-pattern>/proxyPool</url-pattern>
+    </servlet-mapping>
+
+</web-app>
