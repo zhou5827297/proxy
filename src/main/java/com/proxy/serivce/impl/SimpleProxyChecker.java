@@ -29,7 +29,7 @@ public class SimpleProxyChecker implements ProxyChecker {
 
         List<ProxyBean> availableProxyList = Collections.synchronizedList(new LinkedList<ProxyBean>());
         List<Callable<String>> tasks = new ArrayList<Callable<String>>();
-        long nowTime = System.currentTimeMillis();
+//        long nowTime = System.currentTimeMillis();
         for (final ProxyBean pb : proxys) {
             tasks.add(new Callable<String>() {
                 @Override
@@ -42,9 +42,9 @@ public class SimpleProxyChecker implements ProxyChecker {
                         if (pb.getErrorCount() / (pb.getSuccessCount() + 1) > 10) {
                             return null;
                         }
-                        if ((nowTime - pb.getPullTime()) / 1000 / 60 > 60) {
-                            return null;
-                        }
+//                        if ((nowTime - pb.getPullTime()) / 1000 / 60 > 60) {
+//                            return null;
+//                        }
                         long start = System.currentTimeMillis();
                         boolean success = HttpPoolManage.checkProxy(ProxyConstant.CHECK_URL, pb);
                         if (success) {
